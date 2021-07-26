@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+service ShortenerService {
+  rpc Shorten(Shorten.Request) returns (Shorten.Response);
+  rpc Expand(Expand.Request) returns (Expand.Response);
+}
+
+message Shorten {
+  message Request {
+    string url = 1;
+  }
+
+  message Response {
+    string token = 1;
+  }
+}
+
+message Expand {
+  message Request {
+    string token = 1;
+  }
+
+  message Response {
+    string url = 1;
+  }
+}
