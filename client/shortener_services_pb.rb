@@ -2,7 +2,7 @@
 # Source: shortener.proto for package ''
 
 require 'grpc'
-# require 'shortener_pb'
+require 'shortener_pb'
 
 module ShortenerService
   class Service

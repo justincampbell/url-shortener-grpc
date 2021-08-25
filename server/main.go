@@ -1,15 +1,17 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
+	"os"
 
 	"github.com/justincampbell/url-shortener-go/urlstore"
 	pb "github.com/justincampbell/url-shortener-grpc/server/shortener"
 	"google.golang.org/grpc"
 )
 
-const port = ":1901"
+var port = "1901"
 
 type server struct {
 	pb.UnimplementedShortenerServiceServer
@@ -17,10 +19,16 @@ type server struct {
 
 var store *urlstore.URLStore
 
+func init() {
+	if v := os.Getenv("PORT"); v != "" {
+		port = v
+	}
+}
+
 func main() {
 	store = urlstore.NewURLStore()
 
-	listener, err := net.Listen("tcp", port)
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 	if err != nil {
 		log.Fatal(err)
 	}
